@@ -1,0 +1,2 @@
+# android-core
+[Mobile] CoreX
