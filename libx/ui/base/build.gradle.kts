@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
-    id("maven-publish")
 }
 
 android {
@@ -42,7 +41,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(":libx:domain"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

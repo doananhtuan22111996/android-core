@@ -23,12 +23,5 @@ jobs:
 
       - name: Run Unit Test
         run: |
-          ./gradlew :ui:base:testReleaseUnitTest
-          ./gradlew :data:testReleaseUnitTest
-
-      - name: Sending report to Telegram
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: 🚀 CORE - Unit Test Passed! >>> ${{github.head_ref}}.
+          ./gradlew :libx:ui:base:testReleaseUnitTest
+          ./gradlew :libx:data:testReleaseUnitTest

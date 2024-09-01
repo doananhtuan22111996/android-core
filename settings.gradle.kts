@@ -20,7 +20,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AndroidCoreX"
-include(":ui")
-include(":ui:base")
-include(":domain")
-include(":data")
+include(":libx")
+include(":libx:ui")
+include(":libx:ui:base")
+include(":libx:domain")
+include(":libx:data")

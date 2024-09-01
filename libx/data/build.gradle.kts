@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     alias(libs.plugins.android.hilt)
-    id("maven-publish")
 }
 
 android {
@@ -35,7 +34,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
+    implementation(project(":libx:domain"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.room.common)
