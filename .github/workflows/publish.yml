@@ -19,8 +19,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Publish android-core
-        run: ./gradlew publish
+      - name: Publish vn.core.libx.domain
+        run: ./gradlew :libx:domain:publish
         env:
           USERNAME: ${{ secrets.USERNAME }}
           TOKEN: ${{ secrets.TOKEN }}
@@ -30,4 +30,30 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: 🚀 New Release Published on android-core packages!
+          message: 🚀 vn.core.libx.domain new release published on Github Packages!
+
+      - name: Publish vn.core.libx.data
+        run: ./gradlew :libx:data:publish
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Sending report to Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: 🚀 vn.core.libx.data new release published on Github Packages!
+
+      - name: Publish vn.core.libx-ui.base
+        run: ./gradlew :libx:ui:base:publish
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          TOKEN: ${{ secrets.TOKEN }}
+
+      - name: Sending report to Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: 🚀 vn.core.libx-ui.base new release published on Github Packages!

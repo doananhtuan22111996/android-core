@@ -1,3 +1,5 @@
+import java.util.Properties
+
 pluginManagement {
     repositories {
         google {
@@ -16,6 +18,19 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+    }
+}
+
+fun getLocalProperty(propertyName: String): String {
+    val localProperties = Properties().apply {
+        val localPropertiesFile = File(rootDir, "local.properties")
+        if (localPropertiesFile.exists()) {
+            load(localPropertiesFile.inputStream())
+        }
+    }
+
+    return localProperties.getProperty(propertyName) ?: run {
+        throw NoSuchFieldException("Not defined property: $propertyName")
     }
 }
 
