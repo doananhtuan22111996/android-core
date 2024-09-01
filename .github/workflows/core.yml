@@ -23,13 +23,6 @@ jobs:
 
       - name: Build with Gradle
         run: |
-          ./gradlew :ui:base:build
-          ./gradlew :data:build
-          ./gradlew :domain:build
-
-      - name: Sending release build to Telegram
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: 🚀 New Release Published on CORE! >>> ${{github.head_ref}}.
+          ./gradlew :libx:ui:base:build
+          ./gradlew :libx:data:build
+          ./gradlew :libx:domain:build
