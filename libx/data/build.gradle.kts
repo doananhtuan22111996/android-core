@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     alias(libs.plugins.android.hilt)
+    id("maven-publish")
 }
 
 android {
@@ -59,4 +60,26 @@ dependencies {
 // Allow references to generated code
 kapt {
     correctErrorTypes = true
+}
+
+publishing {
+    val ghUsername = System.getenv("USERNAME")
+    val ghPassword = System.getenv("TOKEN")
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/${ghUsername}/android-core")
+            credentials {
+                username = ghUsername
+                password = ghPassword
+            }
+        }
+    }
+    publications {
+        create<MavenPublication>("mavenJava") {
+            groupId = "vn.core.libx" // Replace with your GitHub username
+            artifactId = "data"
+            version = "1.0.0" // Set your desired version here
+        }
+    }
 }
