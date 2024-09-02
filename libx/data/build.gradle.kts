@@ -77,6 +77,9 @@ publishing {
     }
     publications {
         create<MavenPublication>("mavenJava") {
+            afterEvaluate {
+                from(components["release"])
+            }
             groupId = "vn.core.libx" // Replace with your GitHub username
             artifactId = "data"
             version = "1.0.0" // Set your desired version here
