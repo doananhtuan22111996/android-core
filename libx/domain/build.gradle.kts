@@ -27,6 +27,7 @@ publishing {
     }
     publications {
         create<MavenPublication>("mavenJava") {
+            from(components["java"])
             groupId = "vn.core.libx" // Replace with your GitHub username
             artifactId = "domain"
             version = "1.0.0" // Set your desired version here
