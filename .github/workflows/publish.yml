@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      USERNAME: ${{ secrets.USERNAME }}
+      TOKEN: ${{ secrets.TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
@@ -21,39 +24,19 @@ jobs:
 
       - name: Publish vn.core.libx.domain
         run: ./gradlew :libx:domain:publish
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Sending report to Telegram
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: 🚀 vn.core.libx.domain new release published on Github Packages!
+        continue-on-error: true
 
       - name: Publish vn.core.libx.data
         run: ./gradlew :libx:data:publish
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          TOKEN: ${{ secrets.TOKEN }}
-
-      - name: Sending report to Telegram
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: 🚀 vn.core.libx.data new release published on Github Packages!
+        continue-on-error: true
 
       - name: Publish vn.core.libx-ui.base
         run: ./gradlew :libx:ui:base:publish
-        env:
-          USERNAME: ${{ secrets.USERNAME }}
-          TOKEN: ${{ secrets.TOKEN }}
+        continue-on-error: true
 
       - name: Sending report to Telegram
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: 🚀 vn.core.libx-ui.base new release published on Github Packages!
+          message: 🚀 Group vn.core.libx new release published on Github Packages!
