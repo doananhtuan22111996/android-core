@@ -1,20 +1,17 @@
 plugins {
-    alias(libs.plugins.jetbrains.kotlin.jvm)
-    id("maven-publish")
+    id("java-library")
+    alias(libs.plugins.jetbrainsKotlinJvm)
+    `maven-publish`
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
-dependencies {
-    implementation(libs.androidx.corecoroutines)
+    sourceCompatibility = Configs.javaVersion
+    targetCompatibility = Configs.javaVersion
 }
 
 publishing {
-    val ghUsername = System.getenv("USERNAME")
-    val ghPassword = System.getenv("TOKEN")
+    val ghUsername = System.getenv("GH_USERNAME")
+    val ghPassword = System.getenv("GH_TOKEN")
     repositories {
         maven {
             name = "GitHubPackages"
@@ -26,11 +23,15 @@ publishing {
         }
     }
     publications {
-        create<MavenPublication>("mavenJava") {
+        create<MavenPublication>("mavenAndroid") {
             from(components["java"])
             groupId = "vn.core.libx" // Replace with your GitHub username
             artifactId = "domain"
             version = "1.0.0" // Set your desired version here
         }
     }
+}
+
+dependencies {
+    implementation(libsCore.androidx.corecoroutines)
 }

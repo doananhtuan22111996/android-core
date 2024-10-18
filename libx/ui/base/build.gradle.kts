@@ -1,19 +1,17 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
-    id("maven-publish")
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinAndroid)
+    `maven-publish`
 }
 
 android {
-    namespace = "vn.core.ui.base"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    namespace = Configs.UiBase.namespace
+    compileSdk = Configs.targetSdk
 
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
+        minSdk = Configs.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -26,11 +24,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Configs.javaVersion
+        targetCompatibility = Configs.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Configs.jvmTarget
     }
 
     buildFeatures {
@@ -39,26 +37,18 @@ android {
         viewBinding = true
         buildConfig = true
     }
-}
 
-dependencies {
-    implementation(project(":libx:domain"))
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.navigation.fragment)
-    implementation(libs.androidx.paging.runtime.ktx)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.timber)
+    publishing {
+        multipleVariants("all") {
+            allVariants()
+            withSourcesJar()
+        }
+    }
 }
 
 publishing {
-    val ghUsername = System.getenv("USERNAME")
-    val ghPassword = System.getenv("TOKEN")
+    val ghUsername = System.getenv("GH_USERNAME")
+    val ghPassword = System.getenv("GH_TOKEN")
     repositories {
         maven {
             name = "GitHubPackages"
@@ -70,13 +60,27 @@ publishing {
         }
     }
     publications {
-        create<MavenPublication>("mavenJava") {
+        create<MavenPublication>("mavenAndroid") {
             afterEvaluate {
-                from(components["release"])
+                from(components["all"])
             }
             groupId = "vn.core.libx-ui" // Replace with your GitHub username
             artifactId = "base"
             version = "1.0.0" // Set your desired version here
         }
     }
+}
+
+dependencies {
+    implementation(project(":libx:domain"))
+    implementation(libs.androidxCoreKtx)
+    implementation(libs.androidxAppcompat)
+    implementation(libs.material)
+    implementation(libs.androidxNavigationFragmentKtx)
+    implementation(libsCore.androidxPagingRuntimeKtx)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidxJunit)
+    androidTestImplementation(libs.androidxEspressoCore)
+
+    implementation(libs.loggerTimber)
 }
