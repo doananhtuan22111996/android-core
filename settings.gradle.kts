@@ -18,6 +18,23 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            val ghUsername = System.getenv("GH_USERNAME") ?: getLocalProperty("GH_USERNAME")
+            val ghPassword = System.getenv("GH_TOKEN") ?: getLocalProperty("GH_TOKEN")
+            url = uri("https://maven.pkg.github.com/${ghUsername}/REPOSITORY")
+            credentials {
+                username = ghUsername
+                password = ghPassword
+            }
+        }
+    }
+    versionCatalogs {
+        create("libs") {
+            from("vn.core.libx:versions:1.0.3")
+        }
+        create("libsCore") {
+            from(files("gradle/core.versions.toml"))
+        }
     }
 }
 
@@ -34,7 +51,7 @@ fun getLocalProperty(propertyName: String): String {
     }
 }
 
-rootProject.name = "AndroidCoreX"
+rootProject.name = "android-corex"
 include(":libx")
 include(":libx:ui")
 include(":libx:ui:base")

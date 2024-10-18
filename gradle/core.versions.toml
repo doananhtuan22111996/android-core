@@ -1,0 +1,13 @@
+[versions]
+roomCommon = "2.6.1"
+roomKtx = "2.6.1"
+coroutines = "1.8.0"
+pagingRuntimeKtx = "3.3.2"
+
+[libraries]
+androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomKtx" }
+androidx-corecoroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+androidxPagingRuntimeKtx = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
+
+[plugins]

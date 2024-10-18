@@ -1,17 +1,17 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.androidLibrary)
     id("kotlin-kapt")
-    alias(libs.plugins.android.hilt)
-    id("maven-publish")
+    alias(libs.plugins.androidHilt)
+    `maven-publish`
 }
 
 android {
-    namespace = "vn.core.data"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    namespace = Configs.Data.namespace
+    compileSdk = Configs.targetSdk
 
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
+        minSdk = Configs.minSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -26,45 +26,26 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Configs.javaVersion
+        targetCompatibility = Configs.javaVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Configs.jvmTarget
     }
-}
-
-dependencies {
-    implementation(project(":libx:domain"))
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.room.common)
-    annotationProcessor(libs.androidx.room.compiler)
-    kapt(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.paging.common.android)
-    implementation(libs.androidx.corecoroutines)
-    implementation(libs.androidx.hilt)
-    implementation(libs.androidx.security.crypto.ktx)
-    kapt(libs.androidx.hiltcompiler)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.gson)
-    implementation(libs.okhttp.interceptor)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.timber)
-}
-
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
+    buildFeatures {
+        buildConfig = true
+    }
+    publishing {
+        multipleVariants("all") {
+            allVariants()
+            withSourcesJar()
+        }
+    }
 }
 
 publishing {
-    val ghUsername = System.getenv("USERNAME")
-    val ghPassword = System.getenv("TOKEN")
+    val ghUsername = System.getenv("GH_USERNAME")
+    val ghPassword = System.getenv("GH_TOKEN")
     repositories {
         maven {
             name = "GitHubPackages"
@@ -76,13 +57,41 @@ publishing {
         }
     }
     publications {
-        create<MavenPublication>("mavenJava") {
+        create<MavenPublication>("mavenAndroid") {
             afterEvaluate {
-                from(components["release"])
+                from(components["all"])
             }
             groupId = "vn.core.libx" // Replace with your GitHub username
             artifactId = "data"
             version = "1.0.0" // Set your desired version here
         }
     }
+}
+
+dependencies {
+    implementation(project(":libx:domain"))
+
+    implementation(libs.androidxCoreKtx)
+    implementation(libsCore.androidx.room.common)
+    implementation(libsCore.androidx.room.ktx)
+    annotationProcessor(libs.androidxRoomCompiler)
+    kapt(libs.androidxRoomCompiler)
+    implementation(libs.androidxPagingCommon)
+    implementation(libs.androidxCoreCoroutines)
+    implementation(libs.androidxSecurity)
+    implementation(libs.androidxHilt)
+    kapt(libs.androidxHiltCompiler)
+    implementation(libs.retrofit)
+    implementation(libs.retrofitGson)
+    implementation(libs.loggerOkhttp)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidxJunit)
+    androidTestImplementation(libs.androidxEspressoCore)
+
+    implementation(libs.loggerTimber)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
