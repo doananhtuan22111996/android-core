@@ -15,7 +15,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/${ghUsername}/android-core")
+            url = uri("${Configs.mavenDomain}/${ghUsername}/android-core")
             credentials {
                 username = ghUsername
                 password = ghPassword
@@ -24,7 +24,7 @@ publishing {
     }
     publications {
         create<MavenPublication>("mavenAndroid") {
-            from(components["java"])
+            from(components["kotlin"])
             groupId = "vn.core.libx" // Replace with your GitHub username
             artifactId = "domain"
             version = "1.0.0" // Set your desired version here
