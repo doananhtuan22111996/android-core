@@ -52,7 +52,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/${ghUsername}/android-core")
+            url = uri("${Configs.mavenDomain}/${ghUsername}/android-core")
             credentials {
                 username = ghUsername
                 password = ghPassword
@@ -72,7 +72,7 @@ publishing {
 }
 
 dependencies {
-    implementation(project(":libx:domain"))
+    implementation(project(Configs.Module.domain))
     implementation(libs.androidxCoreKtx)
     implementation(libs.androidxAppcompat)
     implementation(libs.material)
