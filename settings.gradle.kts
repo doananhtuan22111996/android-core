@@ -48,7 +48,7 @@ fun getLocalProperty(propertyName: String): String {
     }
 }
 
-rootProject.name = "android-corex"
+rootProject.name = "android-core"
 include(":libx")
 include(":libx:ui")
 include(":libx:ui:base")

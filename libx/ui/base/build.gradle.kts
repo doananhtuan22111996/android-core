@@ -1,4 +1,5 @@
 import vn.core.buildSrc.Configs
+import vn.core.plugins.repoUri
 
 plugins {
     vn.core.plugins.androidLibrary
@@ -9,13 +10,17 @@ android {
     namespace = Configs.UiBase.namespace
 
     buildFeatures {
-        // Include plugin id 'kotlin-kapt' if enable dataBinding
         dataBinding = true
         viewBinding = true
     }
 }
 
 publishing {
+    repositories {
+        maven {
+            url = repoUri(repoName = "android-core")
+        }
+    }
     publications {
         create<MavenPublication>(Configs.Artifact.artifactAppId) {
             afterEvaluate {
