@@ -1,13 +1,6 @@
-import org.gradle.api.JavaVersion
+package vn.core.buildSrc
 
 object Configs {
-    const val minSdk = 24
-    const val targetSdk = 34
-    const val compileSdk = 34
-    const val jvmTarget = "21"
-    val javaVersion = JavaVersion.VERSION_21
-    const val mavenDomain = "https://maven.pkg.github.com"
-
     object Module {
         const val domain = ":libx:domain"
         const val data = ":libx:data"
@@ -20,6 +13,16 @@ object Configs {
     object Data {
         const val namespace = "vn.core.data"
     }
+
+    object Domain {
+        const val namespace = "vn.core.domain"
+    }
+
+    object Artifact {
+        const val groupId = "vn.core.libx"
+        const val artifactDataId = "data"
+        const val artifactDomainId = "domain"
+        const val artifactAppId = "app"
+        const val version = "1.0.0"
+    }
 }
-
-
