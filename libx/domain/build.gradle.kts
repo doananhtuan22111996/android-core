@@ -1,37 +1,23 @@
+import vn.core.buildSrc.Configs
+
 plugins {
-    id("java-library")
-    alias(libs.plugins.jetbrainsKotlinJvm)
-    `maven-publish`
+    vn.core.plugins.androidLibrary
+    vn.core.plugins.androidPublishing
 }
 
-java {
-    sourceCompatibility = Configs.javaVersion
-    targetCompatibility = Configs.javaVersion
+android {
+    namespace = Configs.Domain.namespace
 }
 
 publishing {
-    val ghUsername = System.getenv("GH_USERNAME")
-    val ghPassword = System.getenv("GH_TOKEN")
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("${Configs.mavenDomain}/${ghUsername}/android-core")
-            credentials {
-                username = ghUsername
-                password = ghPassword
-            }
-        }
-    }
     publications {
-        create<MavenPublication>("mavenAndroid") {
-            from(components["kotlin"])
-            groupId = "vn.core.libx" // Replace with your GitHub username
-            artifactId = "domain"
-            version = "1.0.0" // Set your desired version here
+        create<MavenPublication>(Configs.Artifact.artifactDomainId) {
+            afterEvaluate {
+                from(components["all"])
+            }
+            groupId = Configs.Artifact.groupId // Replace with your GitHub username
+            artifactId = Configs.Artifact.artifactDomainId
+            version = Configs.Artifact.version // Set your desired version here
         }
     }
-}
-
-dependencies {
-    implementation(libsCore.androidx.corecoroutines)
 }

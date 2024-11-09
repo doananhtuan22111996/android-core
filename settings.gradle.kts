@@ -29,11 +29,8 @@ dependencyResolutionManagement {
         }
     }
     versionCatalogs {
-        create("libs") {
-            from("vn.core.libx:versions:1.0.3")
-        }
-        create("libsCore") {
-            from(files("gradle/core.versions.toml"))
+        create("mobilex") {
+            from("vn.core.libs:versions:1.0.0")
         }
     }
 }
