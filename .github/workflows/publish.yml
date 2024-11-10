@@ -23,15 +23,15 @@ jobs:
         run: chmod +x gradlew
 
       - name: Publish vn.core.libx.domain
-        run: ./gradlew :libx:domain:publish
+        run: ./gradlew :libx:domain:publishDomainPublicationToPackagesRepository
         continue-on-error: true
 
       - name: Publish vn.core.libx.data
-        run: ./gradlew :libx:data:publish
+        run: ./gradlew :libx:data:publishDataPublicationToPackagesRepository
         continue-on-error: true
 
       - name: Publish vn.core.libx-ui.base
-        run: ./gradlew :libx:ui:base:publish
+        run: ./gradlew :libx:ui:base:publishAppPublicationToPackagesRepository
         continue-on-error: true
 
       - name: Sending report to Telegram
