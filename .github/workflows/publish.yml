@@ -10,6 +10,7 @@ jobs:
     env:
       GH_USERNAME: ${{ secrets.GH_USERNAME }}
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_REPO_NAME: ${{ secrets.GH_REPO_NAME }}
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21
@@ -22,15 +23,15 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Publish vn.core.libx.domain
+      - name: Publish vn.core.libs.domain
         run: ./gradlew :libx:domain:publishDomainPublicationToPackagesRepository
         continue-on-error: true
 
-      - name: Publish vn.core.libx.data
+      - name: Publish vn.core.libs.data
         run: ./gradlew :libx:data:publishDataPublicationToPackagesRepository
         continue-on-error: true
 
-      - name: Publish vn.core.libx-ui.base
+      - name: Publish vn.core.libs.app
         run: ./gradlew :libx:ui:base:publishAppPublicationToPackagesRepository
         continue-on-error: true
 
