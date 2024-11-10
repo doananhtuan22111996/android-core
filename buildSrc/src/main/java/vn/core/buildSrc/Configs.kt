@@ -19,7 +19,7 @@ object Configs {
     }
 
     object Artifact {
-        const val groupId = "vn.core.libx"
+        const val groupId = "vn.core.libs"
         const val artifactDataId = "data"
         const val artifactDomainId = "domain"
         const val artifactAppId = "app"
