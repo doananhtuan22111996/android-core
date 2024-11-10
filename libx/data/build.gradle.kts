@@ -1,5 +1,4 @@
 import vn.core.buildSrc.Configs
-import vn.core.plugins.repoUri
 
 plugins {
     vn.core.plugins.androidLibrary
@@ -11,11 +10,6 @@ android {
 }
 
 publishing {
-    repositories {
-        maven {
-            url = repoUri(repoName = "android-core")
-        }
-    }
     publications {
         create<MavenPublication>(Configs.Artifact.artifactDataId) {
             afterEvaluate {
