@@ -1,4 +1,4 @@
-name: Core
+name: Spotless Check
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Spotless Check
     runs-on: ubuntu-latest
     env:
       GH_USERNAME: ${{ secrets.GH_USERNAME }}
@@ -25,8 +26,5 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: |
-          ./gradlew :libx:ui:base:build
-          ./gradlew :libx:data:build
-          ./gradlew :libx:domain:build
+      - name: Spotless Check
+        run: ./gradlew :spotlessCheck

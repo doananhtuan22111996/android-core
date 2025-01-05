@@ -6,22 +6,22 @@ plugins {
 }
 
 android {
-    namespace = Configs.Data.namespace
+    namespace = Configs.Data.NAMESPACE
 }
 
 publishing {
     publications {
-        create<MavenPublication>(Configs.Artifact.artifactDataId) {
+        create<MavenPublication>(Configs.Artifact.ARTIFACT_DATA_ID) {
             afterEvaluate {
                 from(components["all"])
             }
-            groupId = Configs.Artifact.groupId // Replace with your GitHub username
-            artifactId = Configs.Artifact.artifactDataId
-            version = Configs.Artifact.version // Set your desired version here
+            groupId = Configs.Artifact.GROUP_ID // Replace with your GitHub username
+            artifactId = Configs.Artifact.ARTIFACT_DATA_ID
+            version = Configs.Artifact.VERSION // Set your desired version here
         }
     }
 }
 
 dependencies {
-    implementation(project(Configs.Module.domain))
+    implementation(project(Configs.Module.DOMAIN))
 }

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = Configs.UiBase.namespace
+    namespace = Configs.UiBase.NAMESPACE
 
     buildFeatures {
         dataBinding = true
@@ -16,17 +16,17 @@ android {
 
 publishing {
     publications {
-        create<MavenPublication>(Configs.Artifact.artifactAppId) {
+        create<MavenPublication>(Configs.Artifact.ARTIFACT_APP_ID) {
             afterEvaluate {
                 from(components["all"])
             }
-            groupId = Configs.Artifact.groupId // Replace with your GitHub username
-            artifactId = Configs.Artifact.artifactAppId
-            version = Configs.Artifact.version // Set your desired version here
+            groupId = Configs.Artifact.GROUP_ID // Replace with your GitHub username
+            artifactId = Configs.Artifact.ARTIFACT_APP_ID
+            version = Configs.Artifact.VERSION // Set your desired version here
         }
     }
 }
 
 dependencies {
-    implementation(project(Configs.Module.domain))
+    implementation(project(Configs.Module.DOMAIN))
 }

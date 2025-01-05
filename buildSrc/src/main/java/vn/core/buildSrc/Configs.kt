@@ -2,27 +2,27 @@ package vn.core.buildSrc
 
 object Configs {
     object Module {
-        const val domain = ":libx:domain"
-        const val data = ":libx:data"
+        const val DOMAIN = ":libx:domain"
+        const val DATA = ":libx:data"
     }
 
     object UiBase {
-        const val namespace = "vn.core.ui.base"
+        const val NAMESPACE = "vn.core.ui.base"
     }
 
     object Data {
-        const val namespace = "vn.core.data"
+        const val NAMESPACE = "vn.core.data"
     }
 
     object Domain {
-        const val namespace = "vn.core.domain"
+        const val NAMESPACE = "vn.core.domain"
     }
 
     object Artifact {
-        const val groupId = "vn.core.libs"
-        const val artifactDataId = "data"
-        const val artifactDomainId = "domain"
-        const val artifactAppId = "app"
-        const val version = "1.0.0"
+        const val GROUP_ID = "vn.core.libs"
+        const val ARTIFACT_DATA_ID = "data"
+        const val ARTIFACT_DOMAIN_ID = "domain"
+        const val ARTIFACT_APP_ID = "app"
+        const val VERSION = "1.0.1"
     }
 }

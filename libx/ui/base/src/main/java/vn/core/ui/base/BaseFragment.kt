@@ -11,8 +11,7 @@ import androidx.navigation.Navigation
 import androidx.viewbinding.ViewBinding
 import vn.core.ext.setupViewClickHideKeyBoard
 
-abstract class BaseFragment<SharedVM : BaseViewModel, VM : BaseViewModel, VB : ViewBinding> :
-    Fragment() {
+abstract class BaseFragment<SharedVM : BaseViewModel, VM : BaseViewModel, VB : ViewBinding> : Fragment() {
 
     protected abstract val sharedViewModel: SharedVM
 
@@ -35,13 +34,14 @@ abstract class BaseFragment<SharedVM : BaseViewModel, VM : BaseViewModel, VB : V
         viewModel.exception.observe(viewLifecycleOwner) {
             it?.run {
                 sharedViewModel.setAppException(this)
-
             }
         }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         viewBinding = bindingInflater.invoke(inflater, container, false)
         (activity as BaseActivity<*>).window?.setupViewClickHideKeyBoard(viewBinding.root)
