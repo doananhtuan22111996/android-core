@@ -27,21 +27,19 @@ object ProviderModule {
         val isSuccess = file.mkdirs()
         return if (isSuccess) {
             Cache(file, Config.CACHE_FILE_SIZE)
-        } else Cache(context.cacheDir, Config.CACHE_FILE_SIZE)
+        } else {
+            Cache(context.cacheDir, Config.CACHE_FILE_SIZE)
+        }
     }
 
     @Provides
     @Singleton
     @AnoHttpLoggingInterceptor
-    fun bindHttpLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    }
+    fun bindHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     @Provides
     @Singleton
-    fun provideGsonConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
-    }
+    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
     inline fun <reified T> provideRetrofit(
         baseUrl: String,

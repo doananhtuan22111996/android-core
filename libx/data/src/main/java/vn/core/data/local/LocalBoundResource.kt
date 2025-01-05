@@ -15,25 +15,24 @@ abstract class LocalBoundResource<RequestType, ResultType>(private val dispatche
         emit(ResultModel.Loading)
         emit(
             fetchFromDatabase() ?: ResultModel.AppException(
-                type = TypeException.Local, message = "LocalBoundResource somethings wrong"
-            )
+                type = TypeException.Local,
+                message = "LocalBoundResource somethings wrong",
+            ),
         )
         delay(200) // Small delay to ensure all of the value emitted by the flow is consumed
         emit(ResultModel.Done)
     }.flowOn(dispatcher)
 
-
-    private suspend fun fetchFromDatabase(): ResultModel<ResultType>? {
-        return try {
-            val response = onDatabase()
-            Timber.d("fetchFromDatabase ${if (response != null) "Success" else "Failure"}")
-            ResultModel.Success(data = processResponse(response))
-        } catch (e: Exception) {
-            Timber.e("fetchFromDatabase Error: ${e.message}")
-            ResultModel.AppException(
-                type = TypeException.Local, message = e.message
-            )
-        }
+    private suspend fun fetchFromDatabase(): ResultModel<ResultType>? = try {
+        val response = onDatabase()
+        Timber.d("fetchFromDatabase ${if (response != null) "Success" else "Failure"}")
+        ResultModel.Success(data = processResponse(response))
+    } catch (e: Exception) {
+        Timber.e("fetchFromDatabase Error: ${e.message}")
+        ResultModel.AppException(
+            type = TypeException.Local,
+            message = e.message,
+        )
     }
 
     abstract suspend fun onDatabase(): RequestType

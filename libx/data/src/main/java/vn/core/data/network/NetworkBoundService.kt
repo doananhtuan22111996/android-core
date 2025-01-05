@@ -10,9 +10,9 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import retrofit2.Response
 import timber.log.Timber
+import vn.core.data.model.ObjectResponse
 import vn.core.domain.ResultModel
 import vn.core.domain.TypeException
-import vn.core.data.model.ObjectResponse
 import java.net.HttpURLConnection.HTTP_BAD_GATEWAY
 
 abstract class NetworkBoundService<RequestType, ResultType>(private val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
@@ -44,16 +44,17 @@ abstract class NetworkBoundService<RequestType, ResultType>(private val dispatch
         } else {
             try {
                 val obj = Gson().fromJson(
-                    apiResponse.errorBody()?.string(), ObjectResponse::class.java
+                    apiResponse.errorBody()?.string(),
+                    ObjectResponse::class.java,
                 )
                 ResultModel.AppException(
                     type = TypeException.Network(httpCode = apiResponse.code()),
-                    message = obj.metadata?.message
+                    message = obj.metadata?.message,
                 )
             } catch (e: Exception) {
                 ResultModel.AppException(
                     type = TypeException.Network(httpCode = HTTP_BAD_GATEWAY),
-                    message = "Network Somethings wrong! -- ${e.message}"
+                    message = "Network Somethings wrong! -- ${e.message}",
                 )
             }
         }

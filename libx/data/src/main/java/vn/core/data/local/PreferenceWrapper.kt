@@ -2,8 +2,8 @@ package vn.core.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.security.keystore.KeyProperties
 import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.google.gson.Gson
@@ -29,57 +29,41 @@ class PreferenceWrapper(private val context: Context, private val name: String) 
         sharedPreferences?.edit()?.putBoolean(key, value)?.apply()
     }
 
-    fun getBoolean(key: String, defaultValue: Boolean = false): Boolean {
-        return sharedPreferences?.getBoolean(key, defaultValue) ?: false
-    }
+    fun getBoolean(key: String, defaultValue: Boolean = false): Boolean = sharedPreferences?.getBoolean(key, defaultValue) ?: false
 
     fun saveString(key: String, value: String) {
         sharedPreferences?.edit()?.putString(key, value)?.apply()
     }
 
-    fun getString(key: String, defaultValue: String = ""): String {
-        return sharedPreferences?.getString(key, defaultValue) ?: ""
-    }
+    fun getString(key: String, defaultValue: String = ""): String = sharedPreferences?.getString(key, defaultValue) ?: ""
 
     fun saveInt(key: String, value: Int) {
         sharedPreferences?.edit()?.putInt(key, value)?.apply()
     }
 
-    fun getInt(key: String, defaultValue: Int = 0): Int {
-        return sharedPreferences?.getInt(key, defaultValue) ?: 0
-    }
+    fun getInt(key: String, defaultValue: Int = 0): Int = sharedPreferences?.getInt(key, defaultValue) ?: 0
 
     fun saveLong(key: String, value: Long) {
         sharedPreferences?.edit()?.putLong(key, value)?.apply()
     }
 
-    fun getLong(key: String, defaultValue: Long = 0L): Long {
-        return sharedPreferences?.getLong(key, defaultValue) ?: 0L
-    }
+    fun getLong(key: String, defaultValue: Long = 0L): Long = sharedPreferences?.getLong(key, defaultValue) ?: 0L
 
     fun saveFloat(key: String, value: Float) {
         sharedPreferences?.edit()?.putFloat(key, value)?.apply()
     }
 
-    fun getFloat(key: String, defaultValue: Float = 0f): Float {
-        return sharedPreferences?.getFloat(key, defaultValue) ?: 0f
-    }
+    fun getFloat(key: String, defaultValue: Float = 0f): Float = sharedPreferences?.getFloat(key, defaultValue) ?: 0f
 
-    fun toJson(jsonObject: Any?): String {
-        return Gson().toJson(jsonObject)
-    }
+    fun toJson(jsonObject: Any?): String = Gson().toJson(jsonObject)
 
-    fun <T> fromJson(value: String, clazz: Class<T>): T? {
-        return Gson().fromJson(value, clazz)
-    }
+    fun <T> fromJson(value: String, clazz: Class<T>): T? = Gson().fromJson(value, clazz)
 
     fun saveObject(key: String, value: Any?) {
         sharedPreferences?.edit()?.putString(key, toJson(value))?.apply()
     }
 
-    fun <T> getObject(key: String, defaultValue: String = "", clazz: Class<T>): T? {
-        return fromJson(sharedPreferences?.getString(key, defaultValue) ?: "", clazz)
-    }
+    fun <T> getObject(key: String, defaultValue: String = "", clazz: Class<T>): T? = fromJson(sharedPreferences?.getString(key, defaultValue) ?: "", clazz)
 
     private fun initEncryptedPreference(): SharedPreferences? {
         if (initMaterKey() == null) return null
@@ -88,7 +72,7 @@ class PreferenceWrapper(private val context: Context, private val name: String) 
             name,
             initMaterKey()!!, // masterKey created above
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM,
         )
     }
 
@@ -96,7 +80,7 @@ class PreferenceWrapper(private val context: Context, private val name: String) 
         try {
             val spec = KeyGenParameterSpec.Builder(
                 MasterKey.DEFAULT_MASTER_KEY_ALIAS,
-                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+                KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT,
             ).setBlockModes(KeyProperties.BLOCK_MODE_GCM)
                 .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
                 .setKeySize(MasterKey.DEFAULT_AES_GCM_MASTER_KEY_SIZE).build()
@@ -106,5 +90,4 @@ class PreferenceWrapper(private val context: Context, private val name: String) 
         }
         return null
     }
-
 }

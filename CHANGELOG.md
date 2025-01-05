@@ -1,9 +1,12 @@
 
 <a name="1.0.0"></a>
-## 1.0.0 (2024-09-03)
+## 1.0.0 (2024-11-10)
 
 ### Bug Fixes
 
+* github action publish artifact failure ([#17](https://github.com/doananhtuan22111996/android-core/issues/17))
+* github action publish artifact failure ([#16](https://github.com/doananhtuan22111996/android-core/issues/16))
+* publishing artifact failure ([#15](https://github.com/doananhtuan22111996/android-core/issues/15))
 * Publish artifact to other repos ([#8](https://github.com/doananhtuan22111996/android-core/issues/8))
 
 ### Code Refactoring
@@ -13,6 +16,7 @@
 
 ### Features
 
+* migrate to kotlin 2xx ([#14](https://github.com/doananhtuan22111996/android-core/issues/14))
 * enhance libx data ([#10](https://github.com/doananhtuan22111996/android-core/issues/10))
 * Configuration publish artifact to Github package ([#6](https://github.com/doananhtuan22111996/android-core/issues/6))
 * Configuration publish artifact ([#5](https://github.com/doananhtuan22111996/android-core/issues/5))
